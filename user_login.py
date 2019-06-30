@@ -17,7 +17,7 @@ class LoginScreen(QtWidgets.QWidget):
         self.text = QtWidgets.QLabel("")
         self.login_text = QtWidgets.QLabel("Username:")
         self.password_text = QtWidgets.QLabel("Password:")
-        self.register = QtWidgets.QPushButton("Sign In")
+        self.register = QtWidgets.QPushButton("Sign Up")
 
         h1_box = QtWidgets.QHBoxLayout()
         h1_box.addWidget(self.login_text)
@@ -48,7 +48,7 @@ class LoginScreen(QtWidgets.QWidget):
         self.setLayout(h_box)
         self.setWindowTitle("User Login")
         self.login.clicked.connect(self.log_in)
-        self.register.clicked.connect(self.signin)
+        self.register.clicked.connect(self.signup)
 
         self.show()
 
@@ -69,14 +69,14 @@ class LoginScreen(QtWidgets.QWidget):
             self.close()
 
 
-    def signin(self):
+    def signup(self):
         name = self.user_name.text()
         passw = self.password.text()
 
         query = "Insert into users (Username, Password) values(?, ?)"
         database.cursor.execute(query, (name, passw))
         database.con.commit()
-        self.text.setText("Sign in successful\nYou can log in")
+        self.text.setText("Sign up successful\nYou can log in")
 
 
 class Secondscreen(QtWidgets.QWidget):
@@ -172,7 +172,6 @@ class Database():
         query = "create table if not exists users(Username TEXT, Password TEXT, Name TEXT, Surname TEXT, Height INT)"
         self.cursor.execute(query)
         self.con.commit()
-
 
 
 
